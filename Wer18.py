@@ -9,7 +9,7 @@ def func_1(a):
 def func_2(n):
     if n == 0 or n == 1 or n == 2:
         return 1
-    print(2 * func_2(n - 1) + func_2(n - 2) - func_2(n - 3))
+    return 2 * func_2(n - 1) + func_2(n - 2) - func_2(n - 3)
 
 
 def func_3(*arg):
@@ -20,7 +20,7 @@ def func_3(*arg):
 
 
 def func_4(str):
-    return str[::3]
+    return str[::-5]
 
 
 def func_5():
@@ -35,6 +35,9 @@ def abs(n):
     return n
 
 def NWD(m, n):
+    if m == 0 or n == 0:
+        print("cos nie tak")
+        return 1
     if m > n:
         d = n
         while m % d != 0 or n % d != 0:
@@ -46,6 +49,8 @@ def NWD(m, n):
         return NWD(n, m)
     else:
         return n
+
+
 class Frac:
     def __init__(self, a, b):
         self.nominator = a
@@ -57,19 +62,28 @@ class Frac:
         a = NWD(abs(self.nominator), abs(self.denominator))
         self.nominator /= a
         self.denominator /= a
-    def retract(self, other):
+    def __sub__(self, other):
         self.nominator = self.nominator * other.denominator - other.nominator * self.denominator
         self.denominator = self.denominator * other.denominator
         self.shortening()
         self.disp()
-    def quotient(self, other):
+    def __truediv__(self, other):
         self.nominator *= other.denominator
-        self.denominator *= other.denominator
+        self.denominator *= other.nominator
         self.shortening()
         self.disp()
-    def comparison(self, other):
+    def __eq__(self, other):
         if self.nominator == other.nominator and self.denominator == other.denominator:
             return True
         return False
 
 
+a = (3, 2, 5, 3)
+func_1(a)
+print(func_2(19))
+print(func_3(5,2,7))
+str = "I study at the University of Warmia and Mazury in Olsztyn"
+print(func_4(str))
+print(func_5())
+print(Frac(2,6)-Frac(1,5))
+print(Frac(2,6)==Frac(1,3))
